@@ -33,6 +33,14 @@
 - add the given code on it
 ```
 RewriteEngine on
+
+# Check if HTTPS is off
+RewriteCond %{HTTPS} off
+# Redirect to HTTPS
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Check if the requested URI doesn't start with "public"
 RewriteCond %{REQUEST_URI} !^public
+# Rewrite the URI to prepend "public/"
 RewriteRule ^(.*)$ public/$1 [L]
 ```
